@@ -49,7 +49,7 @@ using (var scope = app.Services.CreateScope())
         var context = services.GetRequiredService<AppDbContext>();
         var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-        await context.Database.MigrateAsync();
+        await context.Database.EnsureCreatedAsync();
         await AppDbContextSeed.SeedAsync(context, userManager, roleManager);
     }
     catch (Exception ex)
