@@ -49,10 +49,7 @@ using (var scope = app.Services.CreateScope())
         var context = services.GetRequiredService<AppDbContext>();
         var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-        if (context.Database.GetPendingMigrations().Any())
-           await context.Database.MigrateAsync();
-        else
-           await context.Database.EnsureCreatedAsync();
+        await context.Database.EnsureCreatedAsync();
         await AppDbContextSeed.SeedAsync(context, userManager, roleManager);
     }
     catch (Exception ex)
